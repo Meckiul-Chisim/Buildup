@@ -1,20 +1,34 @@
-import '../global.css';
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { colors } from "../constants/colors";
+import { GameProvider } from "../context/GameContext";
+import "../global.css";
 
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
-
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+// Root layout: wraps the whole app. GameProvider makes coins/XP/inventory
+// state available to every screen via useGame(). MainTabs live at "(tabs)";
+// every other route (item details, activities, rooms, upgrades) is pushed
+// on top as a full-screen stack route with its own back button.
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <GameProvider>
+        <StatusBar style="light" />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: "slide_from_right",
+            contentStyle: { backgroundColor: colors.background },
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="item/[id]" />
+          <Stack.Screen name="use/[id]" />
+          <Stack.Screen name="challenge/[id]" />
+          <Stack.Screen name="rooms" />
+          <Stack.Screen name="upgrade/[id]" />
+        </Stack>
+      </GameProvider>
+    </SafeAreaProvider>
   );
 }
