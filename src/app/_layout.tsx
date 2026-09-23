@@ -7,7 +7,8 @@ export default function RootLayout() {
   return (
     <GameProvider>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="home" />
         <Stack.Screen name="item/[id]" />
         <Stack.Screen name="level/[id]" />
         <Stack.Screen name="rooms" />

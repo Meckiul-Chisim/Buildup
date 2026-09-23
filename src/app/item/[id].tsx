@@ -46,7 +46,7 @@ export default function ApiDetailScreen() {
         <Text className="text-sm font-bold text-amber-200">Remember</Text>
         <Text className="mt-1 text-sm leading-5 text-amber-100/70">Your whole program runs once before the robot animates its recorded actions.</Text>
       </View>
-      <Link href="/(tabs)/items" className="mt-7 text-center font-bold text-cyan-300">View all robot commands</Link>
+      <Link href="/home/items" className="mt-7 text-center font-bold text-cyan-300">View all robot commands</Link>
     </ScrollView>
   );
 }

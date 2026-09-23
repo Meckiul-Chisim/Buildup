@@ -20,7 +20,7 @@ export default function LevelArchiveScreen() {
           </Link>
         ))}
       </View>
-      <Link href="/(tabs)" className="mt-7 text-center font-bold text-cyan-300">Back to levels</Link>
+      <Link href="/home" className="mt-7 text-center font-bold text-cyan-300">Back to levels</Link>
     </ScrollView>
   );
 }

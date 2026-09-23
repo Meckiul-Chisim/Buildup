@@ -45,7 +45,7 @@ export default function LevelScreen() {
       <View className="flex-1 items-center justify-center bg-[#08101f] px-6">
         <Text className="text-xs font-bold uppercase tracking-[0.25em] text-rose-300">Route unavailable</Text>
         <Text className="mt-3 text-center text-2xl font-black text-white">That level could not be loaded.</Text>
-        <Link href="/(tabs)" className="mt-6 font-bold text-cyan-300">Back to levels</Link>
+        <Link href="/home" className="mt-6 font-bold text-cyan-300">Back to levels</Link>
       </View>
     );
   }
@@ -128,13 +128,13 @@ export default function LevelScreen() {
         won={result?.won ?? false}
         onRetry={retryRun}
         onNext={() => nextLevel && router.replace({ pathname: "/level/[id]", params: { id: nextLevel.id } })}
-        onBackToLevels={() => router.replace("/(tabs)")}
+        onBackToLevels={() => router.replace("/home")}
         hasNext={Boolean(nextLevel)}
         steps={result?.actions.length ?? 0}
         failureReason={result?.failureReason ?? null}
       />
       <TutorialOverlay visible={tutorialVisible} onClose={() => setTutorialVisible(false)} />
-      <PauseMenu visible={paused} onClose={() => setPaused(false)} onHome={() => router.replace("/")} onLevels={() => router.replace("/(tabs)")} onRestart={resetEditor} />
+      <PauseMenu visible={paused} onClose={() => setPaused(false)} onHome={() => router.replace("/")} onLevels={() => router.replace("/home")} onRestart={resetEditor} />
     </View>
   );
 }
