@@ -1,42 +1,29 @@
-# Welcome to your Expo app 👋
+ # CodeQuest
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+CodeQuest is a native 3D coding puzzle game. Players write JavaScript against a small `robot` API, then watch the recorded actions animate through a grid maze.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Commands
 
 ```bash
-npm run reset-project
+```bash
+npm install
+npx expo start --dev-client
 ```
+Edit `src/app/index.tsx` to change the first screen. Tailwind classes are scanned from `src` and the global stylesheet is loaded by `src/app/_layout.tsx`.
+This project uses `expo-gl` and React Three Fiber, so it must run in a custom development client. Expo Go does not contain the native GL modules used by CodeQuest.
+## Get started
+## Development client
+1. Install dependencies
+Build the Android development client with EAS, install the resulting APK on a physical device, then start Metro in dev-client mode:
+   ```bash
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+npx eas-cli build --profile development --platform android
+npx expo start --dev-client
 
-### Other setup steps
-
+```bash
+Verify in order: the GL surface renders, a level grid and stationary robot render, then run the starter programs and confirm both loop and sensing levels can be won. Also run a wall collision to confirm the failure modal.
+```
+The sandbox is intentionally a local-MVP isolation boundary, not a security boundary. Player code runs once in `new Function("robot", "console", ...)`, with a 500 robot-call cap, then the recorded action log is animated.
 - To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
 - If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
 - Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
