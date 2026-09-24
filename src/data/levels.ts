@@ -13,7 +13,7 @@ export const levels: Level[] = [
     ],
     startPosition: { x: 1, z: 0 },
     startDirection: 0,
-    starterCode: "robot.moveForward();\nrobot.moveForward();\nrobot.moveForward();",
+    starterCode: "",
   },
   {
     id: "corner-office",
@@ -28,7 +28,7 @@ export const levels: Level[] = [
     ],
     startPosition: { x: 1, z: 0 },
     startDirection: 0,
-    starterCode: "robot.moveForward();\nrobot.moveForward();\nrobot.turnRight();\nrobot.moveForward();\nrobot.moveForward();\nrobot.turnLeft();\nrobot.moveForward();\nrobot.moveForward();",
+    starterCode: "",
   },
   {
     id: "loop-de-loop",
@@ -47,7 +47,7 @@ export const levels: Level[] = [
     ],
     startPosition: { x: 1, z: 0 },
     startDirection: 0,
-    starterCode: "for (let step = 0; step < 8; step += 1) {\n  robot.moveForward();\n}",
+    starterCode: "",
   },
   {
     id: "feel-the-way",
@@ -61,7 +61,7 @@ export const levels: Level[] = [
     ],
     startPosition: { x: 1, z: 0 },
     startDirection: 0,
-    starterCode: "while (!robot.atGoal()) {\n  if (robot.isWallAhead()) {\n    robot.turnRight();\n  } else {\n    robot.moveForward();\n  }\n}",
+    starterCode: "",
   },
 ];
 
