@@ -29,23 +29,24 @@ export default function CourseScreen() {
 
       <View className="mt-7 gap-4">
         {course.chapters.map((chapter, index) => {
-          const done = chapter.challenges.filter((id) => completed.has(id)).length;
+          const done = chapter.challenges.filter((id) => { const item = challenges.find((entry) => entry.id === id)!; return completed.has(item.kind === "maze" ? item.levelId! : item.id); }).length;
+          const chapterUnlocked = index === 0 || course.chapters[index - 1].challenges.every((id) => { const item = challenges.find((entry) => entry.id === id)!; return completed.has(item.kind === "maze" ? item.levelId! : item.id); });
           return (
-            <View key={chapter.id} className="rounded-3xl border border-slate-700 bg-[#111827] p-4">
+            <View key={chapter.id} className={`rounded-3xl border border-slate-700 bg-[#111827] p-4 ${chapterUnlocked ? "" : "opacity-55"}`}>
               <View className="flex-row items-start">
                 <View className="h-11 w-11 items-center justify-center rounded-xl bg-[#123329]"><Text className="font-black text-[#34D399]">{index + 1}</Text></View>
                 <View className="ml-3 flex-1"><Text className="text-lg font-black text-white">{chapter.title}</Text><Text className="mt-1 text-sm text-slate-400">{chapter.subtitle}</Text></View>
-                {done === chapter.challenges.length ? <CheckCircle2 size={20} color="#34D399" /> : <Text className="text-xs font-bold text-slate-500">{done}/{chapter.challenges.length}</Text>}
+                {done === chapter.challenges.length ? <CheckCircle2 size={20} color="#34D399" /> : chapterUnlocked ? <Text className="text-xs font-bold text-slate-500">{done}/{chapter.challenges.length}</Text> : <LockKeyhole size={17} color="#475569" />}
               </View>
               <View className="mt-3 flex-row flex-wrap gap-2">{chapter.skills.map((skill) => <View key={skill} className="rounded-full border border-slate-700 px-2.5 py-1"><Text className="text-[11px] font-bold text-slate-400">{skill}</Text></View>)}</View>
               <View className="mt-4 gap-2">
                 {chapter.challenges.map((challengeId, challengeIndex) => {
                   const challenge = challenges.find((entry) => entry.id === challengeId)!;
                   const isDone = completed.has(challenge.kind === "maze" ? challenge.levelId! : challenge.id);
-                  const previous = challengeIndex === 0 ? true : completed.has(chapter.challenges[challengeIndex - 1]);
+                  const previous = challengeIndex === 0 ? chapterUnlocked : (() => { const item = challenges.find((entry) => entry.id === chapter.challenges[challengeIndex - 1])!; return completed.has(item.kind === "maze" ? item.levelId! : item.id); })();
                   return (
                     <Link key={challenge.id} href={challenge.kind === "maze" ? { pathname: "/level/[id]", params: { id: challenge.levelId } } : { pathname: "/challenge/[id]", params: { id: challenge.id } }} asChild>
-                      <Pressable className="flex-row items-center rounded-2xl border border-slate-800 bg-[#0b1220] px-3 py-3">
+                      <Pressable disabled={!previous} className={`flex-row items-center rounded-2xl border border-slate-800 bg-[#0b1220] px-3 py-3 ${previous ? "" : "opacity-50"}`}>
                         <View className={`h-9 w-9 items-center justify-center rounded-lg ${isDone ? "bg-[#123329]" : "bg-[#182233]"}`}><Text className={`text-xs font-black ${isDone ? "text-[#34D399]" : "text-slate-400"}`}>{challengeIndex + 1}</Text></View>
                         <View className="ml-3 flex-1"><Text className="text-sm font-bold text-white">{challenge.title}</Text><Text className="mt-0.5 text-xs text-slate-500">{challenge.lesson}</Text></View>
                         {isDone ? <CheckCircle2 size={17} color="#34D399" /> : previous ? <ChevronRight size={18} color="#64748b" /> : <LockKeyhole size={15} color="#475569" />}
