@@ -71,12 +71,12 @@ export const courses: Course[] = [
     level: "Beginner → Builder",
     color: "#34D399",
     chapters: [
-      { id: "foundations", title: "01 · JavaScript Foundations", subtitle: "Think like a programmer", skills: ["Variables", "Commands", "Functions"], challenges: ["js-hello", "js-values", "js-robot", "js-turns"] },
-      { id: "logic", title: "02 · Logic & Loops", subtitle: "Make code make decisions", skills: ["if / else", "for", "while", "Sensors"], challenges: ["logic-conditions", "logic-loop", "logic-sensors", "logic-patterns"] },
-      { id: "html", title: "03 · Build the Web", subtitle: "Turn ideas into real pages", skills: ["HTML", "Semantic structure", "Forms", "Navigation"], challenges: ["html-structure", "html-card", "html-form", "html-nav"] },
-      { id: "css", title: "04 · Make It Beautiful", subtitle: "Design interfaces with CSS", skills: ["Colors", "Spacing", "Flexbox", "Responsive CSS"], challenges: ["css-colors", "css-card", "css-layout", "css-responsive"] },
-      { id: "javascript-web", title: "05 · Make It Interactive", subtitle: "Bring websites to life", skills: ["DOM", "Events", "State", "Debugging"], challenges: ["dom-button", "dom-counter", "dom-todo", "debug-broken"] },
-      { id: "projects", title: "06 · Build Real Projects", subtitle: "Ship what you learned", skills: ["Landing pages", "Dashboards", "UI systems", "Capstone"], challenges: ["project-hero", "project-pricing", "project-dashboard", "project-launch"] },
+      { id: "foundations", title: "01 · JavaScript Foundations", subtitle: "Think like a programmer", skills: ["Variables", "Commands", "Functions"], learn: "Learn how code runs from top to bottom, how values are stored, and how functions become reusable instructions.", challenges: ["js-hello", "js-values", "js-robot", "js-turns"] },
+      { id: "logic", title: "02 · Logic & Loops", subtitle: "Make code make decisions", skills: ["if / else", "for", "while", "Sensors"], learn: "Teach your programs to repeat work and react to conditions instead of following one fixed path.", challenges: ["logic-conditions", "logic-loop", "logic-sensors", "logic-patterns"] },
+      { id: "html", title: "03 · Build the Web", subtitle: "Turn ideas into real pages", skills: ["HTML", "Semantic structure", "Forms", "Navigation"], learn: "Move from robot commands to real web structure by building headings, cards, forms and navigation.", challenges: ["html-structure", "html-card", "html-form", "html-nav"] },
+      { id: "css", title: "04 · Make It Beautiful", subtitle: "Design interfaces with CSS", skills: ["Colors", "Spacing", "Flexbox", "Responsive CSS"], learn: "Control the visual system of a page: color, spacing, layout and responsive behavior.", challenges: ["css-colors", "css-card", "css-layout", "css-responsive"] },
+      { id: "javascript-web", title: "05 · Make It Interactive", subtitle: "Bring websites to life", skills: ["DOM", "Events", "State", "Debugging"], learn: "Use JavaScript in the browser to listen for actions, update the page and debug broken behavior.", challenges: ["dom-button", "dom-counter", "dom-todo", "debug-broken"] },
+      { id: "projects", title: "06 · Build Real Projects", subtitle: "Ship what you learned", skills: ["Landing pages", "Dashboards", "UI systems", "Capstone"], learn: "Combine everything into realistic product screens, then finish with a responsive launch website.", challenges: ["project-hero", "project-pricing", "project-dashboard", "project-launch"] },
     ],
   },
 ];
