@@ -14,7 +14,7 @@ export default function CourseScreen() {
 
   const completed = new Set(state.completedLevelIds);
   const allChallenges = course.chapters.flatMap((chapter) => chapter.challenges);
-  const progress = allChallenges.filter((challengeId) => completed.has(challengeId)).length;
+  const progress = allChallenges.filter((challengeId) => { const item = challenges.find((entry) => entry.id === challengeId)!; return completed.has(item.kind === "maze" ? item.levelId! : item.id); }).length;
 
   return (
     <ScrollView className="flex-1 bg-[#08101f]" contentContainerStyle={{ padding: 20, paddingTop: 56, paddingBottom: 40 }}>
@@ -41,7 +41,7 @@ export default function CourseScreen() {
               <View className="mt-4 gap-2">
                 {chapter.challenges.map((challengeId, challengeIndex) => {
                   const challenge = challenges.find((entry) => entry.id === challengeId)!;
-                  const isDone = completed.has(challengeId);
+                  const isDone = completed.has(challenge.kind === "maze" ? challenge.levelId! : challenge.id);
                   const previous = challengeIndex === 0 ? true : completed.has(chapter.challenges[challengeIndex - 1]);
                   return (
                     <Link key={challenge.id} href={challenge.kind === "maze" ? { pathname: "/level/[id]", params: { id: challenge.levelId } } : { pathname: "/challenge/[id]", params: { id: challenge.id } }} asChild>
