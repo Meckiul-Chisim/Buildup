@@ -82,7 +82,7 @@ export default function LevelScreen() {
         </View>
         <View className="mt-5 flex-row items-end justify-between">
           <View className="flex-1">
-            <Text className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Mission 01 / 04</Text>
+            <Text className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Practice Lab</Text>
             <Text className="mt-2 text-3xl font-black text-white">{level.name}</Text>
           </View>
           <Pressable onPress={() => setTutorialVisible(true)} className="ml-3 rounded-xl border border-slate-600 px-3 py-2">
