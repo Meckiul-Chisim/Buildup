@@ -38,7 +38,7 @@ export default function CourseScreen() {
                 <View className="ml-3 flex-1"><Text className="text-lg font-black text-white">{chapter.title}</Text><Text className="mt-1 text-sm text-slate-400">{chapter.subtitle}</Text></View>
                 {done === chapter.challenges.length ? <CheckCircle2 size={20} color="#34D399" /> : chapterUnlocked ? <Text className="text-xs font-bold text-slate-500">{done}/{chapter.challenges.length}</Text> : <LockKeyhole size={17} color="#475569" />}
               </View>
-              <View className="mt-3 flex-row flex-wrap gap-2">{chapter.skills.map((skill) => <View key={skill} className="rounded-full border border-slate-700 px-2.5 py-1"><Text className="text-[11px] font-bold text-slate-400">{skill}</Text></View>)}</View>
+              <Text className="mt-3 text-sm leading-5 text-slate-400">{chapter.learn}</Text><View className="mt-3 flex-row flex-wrap gap-2">{chapter.skills.map((skill) => <View key={skill} className="rounded-full border border-slate-700 px-2.5 py-1"><Text className="text-[11px] font-bold text-slate-400">{skill}</Text></View>)}</View>
               <View className="mt-4 gap-2">
                 {chapter.challenges.map((challengeId, challengeIndex) => {
                   const challenge = challenges.find((entry) => entry.id === challengeId)!;
