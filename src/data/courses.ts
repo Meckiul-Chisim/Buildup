@@ -42,7 +42,7 @@ export const challenges: Challenge[] = [
   { id: "logic-sensors", title: "Sense the Way", kind: "maze", lesson: "while and sensors", objective: "Use the robot sensor to decide when to move.", levelId: "feel-the-way", starterCode: "", expected: ["while", "robot.isWallAhead"], reward: 125 },
   { id: "logic-patterns", title: "Zigzag Protocol", kind: "maze", lesson: "Combining logic", objective: "Solve a larger route with reusable patterns.", levelId: "zigzag-protocol", starterCode: "", expected: ["robot.moveForward"], reward: 150 },
 
-  { id: "html-structure", title: "Build a Landing Page", kind: "browser", lesson: "HTML structure", objective: "Create a page with a heading, paragraph and button.", starterCode: "<h1></h1>\n<p></p>\n<button></button>", expected: ["<h1", "<p", "<button"], reward: 75 },
+  { id: "html-structure", title: "Build a Landing Page", kind: "browser", lesson: "HTML structure", objective: "Create a page with a heading, paragraph and button.", starterCode: "", expected: ["<h1", "<p", "<button"], reward: 75 },
   { id: "html-card", title: "Product Card", kind: "browser", lesson: "Semantic sections", objective: "Build the structure of a product card.", starterCode: "", expected: ["<article", "<h2", "<button"], reward: 90 },
   { id: "html-form", title: "Contact Form", kind: "browser", lesson: "Forms and inputs", objective: "Create a simple contact form with a name input and submit button.", starterCode: "", expected: ["<form", "<input", "type=\"submit\""], reward: 100 },
   { id: "html-nav", title: "Navigation Bar", kind: "browser", lesson: "Links and navigation", objective: "Build a navigation area with links.", starterCode: "", expected: ["<nav", "<a"], reward: 100 },
@@ -55,7 +55,7 @@ export const challenges: Challenge[] = [
   { id: "dom-button", title: "Make the Button Do Something", kind: "browser", lesson: "DOM events", objective: "Add a click handler that changes the page.", starterCode: "", expected: ["addEventListener", "click"], reward: 110 },
   { id: "dom-counter", title: "Counter Machine", kind: "browser", lesson: "State with JavaScript", objective: "Make a button increase a visible counter.", starterCode: "", expected: ["addEventListener", "textContent"], reward: 125 },
   { id: "dom-todo", title: "Mini Todo App", kind: "browser", lesson: "Creating elements", objective: "Create a todo item from user input.", starterCode: "", expected: ["createElement", "append"], reward: 150 },
-  { id: "debug-broken", title: "Fix the Broken Page", kind: "debug", lesson: "Debugging", objective: "Find the missing closing tag and broken JavaScript call.", starterCode: "<h1>My App<h1>\n<script>console.log(hello)</script>", expected: ["</h1>", "console.log(\"hello\")"], reward: 175 },
+  { id: "debug-broken", title: "Fix the Broken Page", kind: "debug", lesson: "Debugging", objective: "Find the missing closing tag and broken JavaScript call.", starterCode: "", expected: ["</h1>", "console.log(\"hello\")"], reward: 175 },
 
   { id: "project-hero", title: "Project: Hero Section", kind: "browser", lesson: "Real project build", objective: "Build a hero section for a fictional startup.", starterCode: "", expected: ["<section", "<h1", "button"], reward: 150 },
   { id: "project-pricing", title: "Project: Pricing Cards", kind: "browser", lesson: "Real project build", objective: "Create a three-tier pricing section.", starterCode: "", expected: ["pricing", "display", "flex"], reward: 175 },
