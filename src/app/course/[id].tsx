@@ -45,7 +45,7 @@ export default function CourseScreen() {
                   const isDone = completed.has(challenge.kind === "maze" ? challenge.levelId! : challenge.id);
                   const previous = challengeIndex === 0 ? chapterUnlocked : (() => { const item = challenges.find((entry) => entry.id === chapter.challenges[challengeIndex - 1])!; return completed.has(item.kind === "maze" ? item.levelId! : item.id); })();
                   return (
-                    <Link key={challenge.id} href={challenge.kind === "maze" ? { pathname: "/level/[id]", params: { id: challenge.levelId } } : { pathname: "/challenge/[id]", params: { id: challenge.id } }} asChild>
+                    <Link key={challenge.id} href={challenge.kind === "maze" ? { pathname: "/level/[id]", params: { id: challenge.levelId! } } : { pathname: "/challenge/[id]", params: { id: challenge.id } }} asChild>
                       <Pressable disabled={!previous} className={`flex-row items-center rounded-2xl border border-slate-800 bg-[#0b1220] px-3 py-3 ${previous ? "" : "opacity-50"}`}>
                         <View className={`h-9 w-9 items-center justify-center rounded-lg ${isDone ? "bg-[#123329]" : "bg-[#182233]"}`}><Text className={`text-xs font-black ${isDone ? "text-[#34D399]" : "text-slate-400"}`}>{challengeIndex + 1}</Text></View>
                         <View className="ml-3 flex-1"><Text className="text-sm font-bold text-white">{challenge.title}</Text><Text className="mt-0.5 text-xs text-slate-500">{challenge.lesson}</Text></View>
