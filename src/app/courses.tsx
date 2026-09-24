@@ -28,7 +28,7 @@ export default function CoursesScreen() {
         ))}
       </View>
 
-      <Link href="/home" asChild><Pressable className="mt-5 rounded-2xl border border-slate-700 px-4 py-3"><Text className="text-center font-bold text-slate-300">Open Practice Lab</Text></Pressable></Link>
+      <Link href="/levels" asChild><Pressable className="mt-5 rounded-2xl border border-slate-700 px-4 py-3"><Text className="text-center font-bold text-slate-300">Open 3D Practice Lab</Text></Pressable></Link>
     </ScrollView>
   );
 }
