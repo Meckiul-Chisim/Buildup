@@ -55,7 +55,7 @@ export default function HomeScreen() {
           <Feature title="Ship" body="The final chapters combine everything into landing pages and dashboards." icon="03" />
         </View>
         <Link href="/courses" asChild><Pressable className="mt-5 rounded-2xl bg-[#34D399] px-4 py-4"><Text className="text-center font-black text-[#08101f]">Explore the full course</Text></Pressable></Link>
-        <Link href="/home" asChild><Pressable disabled className="mt-3 rounded-2xl border border-slate-800 px-4 py-3"><Text className="text-center text-xs font-bold text-slate-600">You are on the course dashboard</Text></Pressable></Link>
+        <Link href="/levels" asChild><Pressable className="mt-3 rounded-2xl border border-slate-700 px-4 py-3"><Text className="text-center font-bold text-slate-300">Open 3D Practice Lab</Text></Pressable></Link>
       </View>
     </ScrollView>
   );
