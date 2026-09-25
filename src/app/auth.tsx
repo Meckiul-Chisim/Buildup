@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useRouter } from "expo-router";
 import { Code2, Eye, EyeOff, LockKeyhole, Mail } from "lucide-react-native";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useAuth } from "@/context/AuthContext";
 
 export default function AuthScreen() {
   const { signIn, signUp } = useAuth();
+  const router = useRouter();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,11 +23,18 @@ export default function AuthScreen() {
     setBusy(true);
     if (mode === "signin") {
       const error = await signIn(email, password);
-      setMessage(error ?? "");
+      if (!error) {
+        router.replace("/home");
+        return;
+      }
+      setMessage(error);
     } else {
       const result = await signUp(email, password);
-      setMessage(result.error ?? (result.confirmation ? "Account created. Check your email, then sign in." : ""));
-      if (!result.error && result.confirmation) setMode("signin");
+      if (!result.error) {
+        router.replace("/home");
+        return;
+      }
+      setMessage(result.error);
     }
     setBusy(false);
   }
