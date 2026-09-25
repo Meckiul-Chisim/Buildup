@@ -1,5 +1,6 @@
 import { Stack, useRouter, useSegments } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
+import { useEffect } from "react";
 
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { GameProvider } from "@/context/GameContext";
@@ -11,6 +12,19 @@ function AuthGate() {
   const router = useRouter();
   const inAuth = segments[0] === "auth";
 
+  useEffect(() => {
+    if (loading) return;
+
+    if (!session && !inAuth) {
+      router.replace("/auth");
+      return;
+    }
+
+    if (session && inAuth) {
+      router.replace("/home");
+    }
+  }, [loading, session, inAuth, router]);
+
   if (loading) {
     return (
       <View className="flex-1 items-center justify-center bg-[#08101f]">
@@ -19,13 +33,7 @@ function AuthGate() {
     );
   }
 
-  if (!session && !inAuth) {
-    router.replace("/auth");
-    return null;
-  }
-
-  if (session && inAuth) {
-    router.replace("/home");
+  if ((!session && !inAuth) || (session && inAuth)) {
     return null;
   }
 
