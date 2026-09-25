@@ -1,4 +1,5 @@
 import { Link } from "expo-router";
+import { useAuth } from "@/context/AuthContext";
 import { ArrowRight, BookOpen, Code2, Gamepad2, Layers3, Settings } from "lucide-react-native";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
@@ -8,6 +9,7 @@ import { useGame } from "@/context/GameContext";
 
 export default function HomeScreen() {
   const { state } = useGame();
+  const { session } = useAuth();
 
   return (
     <ScrollView
@@ -32,6 +34,16 @@ export default function HomeScreen() {
             </Pressable>
           </Link>
         </View>
+
+        {!session && (
+          <Link href="/auth" asChild>
+            <Pressable className="mt-6 rounded-2xl border border-[#1f5a4a] bg-[#0b241f] p-4">
+              <Text className="text-sm font-black text-[#34D399]">Save your progress</Text>
+              <Text className="mt-1 text-sm leading-5 text-slate-400">You can use Buildup without an account. Sign up or log in when you want your account and progress to be saved.</Text>
+              <Text className="mt-3 text-sm font-black text-white">Sign up / Log in →</Text>
+            </Pressable>
+          </Link>
+        )}
 
         <Text className="mt-8 text-xs font-bold uppercase tracking-[0.25em] text-[#34D399]">
           Your learning path
