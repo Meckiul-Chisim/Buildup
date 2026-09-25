@@ -52,7 +52,34 @@ export default function LevelScreen() {
   const levelIndex = levels.findIndex((entry) => entry.id === level.id);
   const nextLevel = levels[levelIndex + 1];
 
-  const challenge = level.challenge;\n  const isCodeChallenge = Boolean(challenge && challenge.kind !== "robot");\n\n  const runProgram = async () => {\n    if (!code.trim()) {\n      setResult({ actions: [], output: [], error: null, won: false, failureReason: "Write your own solution before running the challenge." });\n      return;\n    }\n    setRunning(true);\n    const nextResult = await executeLevel(level, code);\n    setResult(nextResult);\n    setRunKey((value) => value + 1);\n    if (nextResult.won) dispatch({ type: "COMPLETE_LEVEL", levelId: level.id });\n    if (isCodeChallenge) setRunning(false);\n  };\n\n  const resetEditor = () => {\n    setResult(null);\n    setRunning(false);\n    setCode(level.starterCode);\n  };\n\n  const retryRun = async () => {\n    setResult(null);\n    setRunning(false);\n    await runProgram();\n  };\n  return (
+  const challenge = level.challenge;
+  const isCodeChallenge = Boolean(challenge && challenge.kind !== "robot");
+
+  const runProgram = async () => {
+    if (!code.trim()) {
+      setResult({ actions: [], output: [], error: null, won: false, failureReason: "Write your own solution before running the challenge." });
+      return;
+    }
+    setRunning(true);
+    const nextResult = await executeLevel(level, code);
+    setResult(nextResult);
+    setRunKey((value) => value + 1);
+    if (nextResult.won) dispatch({ type: "COMPLETE_LEVEL", levelId: level.id });
+    if (isCodeChallenge) setRunning(false);
+  };
+
+  const resetEditor = () => {
+    setResult(null);
+    setRunning(false);
+    setCode(level.starterCode);
+  };
+
+  const retryRun = async () => {
+    setResult(null);
+    setRunning(false);
+    await runProgram();
+  };
+  return (
     <View className="flex-1 bg-[#08101f]">
       <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 54, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
         <View className="flex-row items-center justify-between rounded-2xl border border-slate-700 bg-[#131722] px-3 py-2">
@@ -71,7 +98,39 @@ export default function LevelScreen() {
         </View>
         <Text className="mt-2 text-base leading-6 text-slate-300">{level.description}</Text>
 
-        {isCodeChallenge ? (\n          <View className="mt-5 rounded-3xl border border-emerald-500/20 bg-[#101a2d] p-4">\n            <Text className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-300">{challenge?.chapter}</Text>\n            <Text className="mt-2 text-xl font-black text-white">{challenge?.lesson}</Text>\n            <Text className="mt-2 text-sm leading-5 text-slate-400">{challenge?.teachingSummary}</Text>\n            <View className="mt-4 rounded-2xl border border-slate-700 bg-[#0b1220] p-4">\n              <Text className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500">Mission</Text>\n              <Text className="mt-2 text-base font-bold leading-6 text-slate-100">{challenge?.objective}</Text>\n            </View>\n            <Text className="mt-3 text-xs font-bold text-slate-500">Write the solution yourself. The checker validates what your code actually does.</Text>\n          </View>\n        ) : (\n          <View className="mt-5 overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#101a2d]">\n            <View className="flex-row items-center justify-between border-b border-slate-700 bg-[#162843] px-4 py-3">\n              <Text className="text-xs font-bold uppercase tracking-[0.18em] text-slate-300">3D maze</Text>\n              <Text className="text-xs font-bold text-slate-400">{running ? "ROBOT MOVING" : "READY"}</Text>\n            </View>\n            <View className="h-[310px]">\n              <Canvas shadows camera={{ position: [5, 5, 7], fov: 45 }}>\n                <SceneCamera level={level} />\n                <color attach="background" args={["#101a2d"]} />\n                <fog attach="fog" args={["#101a2d", 7, 18]} />\n                <ambientLight intensity={1.4} />\n                <directionalLight position={[4, 7, 5]} intensity={3} castShadow />\n                <GridFloor level={level} />\n                <Walls level={level} />\n                <GoalMarker level={level} />\n                <Robot level={level} actions={result?.actions ?? []} runKey={runKey} playing={running || Boolean(result)} onFinished={() => setRunning(false)} />\n              </Canvas>\n            </View>\n          </View>\n        )}\n        <View className="mt-5 gap-3">
+        {isCodeChallenge ? (
+          <View className="mt-5 rounded-3xl border border-emerald-500/20 bg-[#101a2d] p-4">
+            <Text className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-300">{challenge?.chapter}</Text>
+            <Text className="mt-2 text-xl font-black text-white">{challenge?.lesson}</Text>
+            <Text className="mt-2 text-sm leading-5 text-slate-400">{challenge?.teachingSummary}</Text>
+            <View className="mt-4 rounded-2xl border border-slate-700 bg-[#0b1220] p-4">
+              <Text className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500">Mission</Text>
+              <Text className="mt-2 text-base font-bold leading-6 text-slate-100">{challenge?.objective}</Text>
+            </View>
+            <Text className="mt-3 text-xs font-bold text-slate-500">Write the solution yourself. The checker validates what your code actually does.</Text>
+          </View>
+        ) : (
+          <View className="mt-5 overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#101a2d]">
+            <View className="flex-row items-center justify-between border-b border-slate-700 bg-[#162843] px-4 py-3">
+              <Text className="text-xs font-bold uppercase tracking-[0.18em] text-slate-300">3D maze</Text>
+              <Text className="text-xs font-bold text-slate-400">{running ? "ROBOT MOVING" : "READY"}</Text>
+            </View>
+            <View className="h-[310px]">
+              <Canvas shadows camera={{ position: [5, 5, 7], fov: 45 }}>
+                <SceneCamera level={level} />
+                <color attach="background" args={["#101a2d"]} />
+                <fog attach="fog" args={["#101a2d", 7, 18]} />
+                <ambientLight intensity={1.4} />
+                <directionalLight position={[4, 7, 5]} intensity={3} castShadow />
+                <GridFloor level={level} />
+                <Walls level={level} />
+                <GoalMarker level={level} />
+                <Robot level={level} actions={result?.actions ?? []} runKey={runKey} playing={running || Boolean(result)} onFinished={() => setRunning(false)} />
+              </Canvas>
+            </View>
+          </View>
+        )}
+        <View className="mt-5 gap-3">
           <CodeEditor value={code} onChangeText={setCode} disabled={running} showLineNumbers={showLineNumbers} />
           <CodeOutputPanel text={result?.output[0] ?? "Ready..."} />
           <View className="flex-row gap-3">
