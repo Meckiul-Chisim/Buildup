@@ -1,8 +1,8 @@
 import { Link, useLocalSearchParams } from "expo-router";
-import { ArrowLeft, BookOpen, CheckCircle2, ChevronDown, Code2, Lightbulb } from "lucide-react-native";
+import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Code2, Lightbulb } from "lucide-react-native";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
-import { getCourse } from "@/data/courses";
+import { courses, getCourse } from "@/data/courses";
 
 type Lesson = {
   what: string;
@@ -191,6 +191,40 @@ export default function CourseScreen() {
           By the end, you should understand not only what JavaScript and JSX syntax looks like, but why it works, how data moves through an application, and how developers turn these pieces into real websites and apps.
         </Text>
       </View>
+
+      {(() => {
+        const currentIndex = courses.findIndex((item) => item.id === course.id);
+        const nextCourse = courses[currentIndex + 1];
+
+        if (!nextCourse) {
+          return (
+            <View className="mt-5 rounded-3xl border border-slate-800 bg-[#101827] p-5">
+              <Text className="text-xs font-bold uppercase tracking-[0.16em] text-[#34D399]">Course complete</Text>
+              <Text className="mt-2 text-lg font-black text-white">You reached the end of the learning path.</Text>
+              <Link href="/courses" asChild>
+                <Pressable className="mt-4 rounded-2xl bg-[#34D399] px-4 py-4">
+                  <Text className="text-center font-black text-[#08101f]">View all courses</Text>
+                </Pressable>
+              </Link>
+            </View>
+          );
+        }
+
+        return (
+          <Link href={{ pathname: "/course/[id]", params: { id: nextCourse.id } }} asChild>
+            <Pressable className="mt-5 rounded-3xl bg-[#34D399] px-5 py-4">
+              <View className="flex-row items-center justify-between">
+                <View className="flex-1">
+                  <Text className="text-xs font-black uppercase tracking-[0.16em] text-[#064e3b]">Next course</Text>
+                  <Text className="mt-1 text-lg font-black text-[#08101f]">{nextCourse.title}</Text>
+                  <Text className="mt-1 text-xs text-[#0f5132]">Continue your learning path</Text>
+                </View>
+                <ArrowRight size={22} color="#08101f" strokeWidth={3} />
+              </View>
+            </Pressable>
+          </Link>
+        );
+      })()}
     </ScrollView>
   );
 }
