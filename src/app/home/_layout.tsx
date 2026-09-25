@@ -61,7 +61,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="tasks"
         options={{
-          title: "Reference",
+          title: "JS Course",
           tabBarIcon: ({ color, size, focused }) => (
             <BookOpen size={size} color={color} fill={focused ? color : "transparent"} />
           ),
