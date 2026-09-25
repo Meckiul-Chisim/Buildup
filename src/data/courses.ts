@@ -61,13 +61,17 @@ export const challenges: Challenge[] = [
   { id: "project-pricing", title: "Project: Pricing Cards", kind: "browser", lesson: "Real project build", objective: "Create a three-tier pricing section.", starterCode: "", expected: ["pricing", "display", "flex"], reward: 175 },
   { id: "project-dashboard", title: "Project: Analytics Dashboard", kind: "browser", lesson: "Real project build", objective: "Assemble a dashboard with navigation, stats and a chart placeholder.", starterCode: "", expected: ["nav", "card", "display"], reward: 200 },
   { id: "project-launch", title: "Final Project: Launch Site", kind: "browser", lesson: "Capstone", objective: "Build a responsive landing page that combines structure, styling and interaction.", starterCode: "", expected: ["<main", "display", "addEventListener", "@media"], reward: 300 },
+  { id: "jsx-component", title: "Your First JSX Component", kind: "browser", lesson: "JSX and components", objective: "Write a React component that returns a heading and paragraph.", starterCode: "", expected: ["function", "return", "<h1", "<p"], reward: 150 },
+  { id: "jsx-props", title: "Pass Data with Props", kind: "browser", lesson: "JSX props", objective: "Create a reusable component that receives and displays a prop.", starterCode: "", expected: ["props", "return"], reward: 175 },
+  { id: "jsx-conditions", title: "Conditional UI", kind: "browser", lesson: "Conditional rendering", objective: "Render different JSX based on a condition.", starterCode: "", expected: ["?", ":"], reward: 175 },
+  { id: "jsx-list", title: "Render a List", kind: "browser", lesson: "JSX lists and map", objective: "Use map() to turn an array into a list of JSX elements.", starterCode: "", expected: [".map", "return", "<li"], reward: 200 },
 ];
 
 export const courses: Course[] = [
   {
     id: "web-developer",
     title: "Web Developer Journey",
-    description: "Go from your first JavaScript command to building a real responsive website.",
+    description: "Go from JavaScript fundamentals to JSX, React components, and real responsive web projects.",
     level: "Beginner → Builder",
     color: "#34D399",
     chapters: [
@@ -77,6 +81,7 @@ export const courses: Course[] = [
       { id: "css", title: "04 · Make It Beautiful", subtitle: "Design interfaces with CSS", skills: ["Colors", "Spacing", "Flexbox", "Responsive CSS"], learn: "Control the visual system of a page: color, spacing, layout and responsive behavior.", challenges: ["css-colors", "css-card", "css-layout", "css-responsive"] },
       { id: "javascript-web", title: "05 · Make It Interactive", subtitle: "Bring websites to life", skills: ["DOM", "Events", "State", "Debugging"], learn: "Use JavaScript in the browser to listen for actions, update the page and debug broken behavior.", challenges: ["dom-button", "dom-counter", "dom-todo", "debug-broken"] },
       { id: "projects", title: "06 · Build Real Projects", subtitle: "Ship what you learned", skills: ["Landing pages", "Dashboards", "UI systems", "Capstone"], learn: "Combine everything into realistic product screens, then finish with a responsive launch website.", challenges: ["project-hero", "project-pricing", "project-dashboard", "project-launch"] },
+      { id: "jsx", title: "07 · JSX & React Foundations", subtitle: "Turn JavaScript into interfaces", skills: ["JSX", "Components", "Props", "Conditional UI", "map()"], learn: "Learn how JSX works inside JavaScript, build reusable components, pass data with props, render conditions, and turn arrays into UI.", challenges: ["jsx-component", "jsx-props", "jsx-conditions", "jsx-list"] },
     ],
   },
 ];
