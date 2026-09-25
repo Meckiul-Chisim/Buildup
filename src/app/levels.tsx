@@ -33,13 +33,13 @@ export default function LevelsScreen() {
       </Link>
 
       <Text className="mt-7 text-xs font-bold uppercase tracking-[0.22em] text-[#34D399]">
-        Practice Lab
+        Buildup Course
       </Text>
       <Text className="mt-2 text-3xl font-black text-white">
-        3D Robot Levels
+        JavaScript Developer Path
       </Text>
       <Text className="mt-2 text-base leading-6 text-slate-400">
-        A separate playground for practicing movement, loops, turns and sensors.
+        Learn by writing code: console.log → logic → loops → functions → data → web → async → APIs → projects.
       </Text>
 
       <View className="mt-6 gap-3">
@@ -83,7 +83,7 @@ export default function LevelsScreen() {
                     {level.description}
                   </Text>
 
-                  <View className="mt-2 flex-row items-center">
+                  <Text className="mt-2 text-[11px] font-bold text-emerald-300">{level.challenge?.chapter ?? "Robot Lab"}</Text>\n\n                  <View className="mt-2 flex-row items-center">
                     {[0, 1, 2].map((star) => (
                       <Star
                         key={star}
