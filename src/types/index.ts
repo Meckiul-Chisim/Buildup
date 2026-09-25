@@ -79,6 +79,19 @@ export type Position = {
   z: number;
 };
 
+export type ChallengeKind = "robot" | "console" | "logic" | "loop" | "function" | "data" | "web" | "async" | "api" | "project";
+
+export type ChallengeSpec = {
+  kind: Exclude<ChallengeKind, "robot">;
+  chapter: string;
+  lesson: string;
+  objective: string;
+  teachingSummary: string;
+  requiredTokens?: string[];
+  expectedOutput?: string[];
+  minOutputLines?: number;
+};
+
 export type Level = {
   id: string;
   name: string;
@@ -87,6 +100,7 @@ export type Level = {
   startPosition: Position;
   startDirection: Direction;
   starterCode: string;
+  challenge?: ChallengeSpec;
 };
 
 export type ActionLogEntry = {
