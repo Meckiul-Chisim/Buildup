@@ -83,7 +83,9 @@ export default function LevelsScreen() {
                     {level.description}
                   </Text>
 
-                  <Text className="mt-2 text-[11px] font-bold text-emerald-300">{level.challenge?.chapter ?? "Robot Lab"}</Text>\n\n                  <View className="mt-2 flex-row items-center">
+                  <Text className="mt-2 text-[11px] font-bold text-emerald-300">{level.challenge?.chapter ?? "Robot Lab"}</Text>
+
+                  <View className="mt-2 flex-row items-center">
                     {[0, 1, 2].map((star) => (
                       <Star
                         key={star}
