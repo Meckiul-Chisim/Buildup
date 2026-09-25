@@ -1,6 +1,7 @@
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { ArrowLeft, CheckCircle2, Globe, Play, Terminal, Wrench } from "lucide-react-native";
 import { useMemo, useState } from "react";
+import { courses } from "@/data/courses";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { CodeEditor } from "@/components/CodeEditor";
@@ -26,14 +27,93 @@ export default function ChallengeScreen() {
 
   const completed = state.completedLevelIds.includes(challenge.id);
 
-  const run = () => {
-    if (missing.length === 0) {
+  const [running, setRunning] = useState(false);
+  const [output, setOutput] = useState<string[]>([]);
+
+  const challengePath = useMemo(() => {
+    for (const course of courses) {
+      for (const chapter of course.chapters) {
+        const index = chapter.challenges.indexOf(challenge?.id ?? "");
+        if (index !== -1) {
+          return {
+            courseId: course.id,
+            chapterTitle: chapter.title,
+            challengeIndex: index,
+            challengeIds: chapter.challenges,
+          };
+        }
+      }
+    }
+    return null;
+  }, [challenge?.id]);
+
+  const nextChallengeId = challengePath
+    ? challengePath.challengeIds[challengePath.challengeIndex + 1]
+    : undefined;
+
+  const run = async () => {
+    if (running) return;
+    setRunning(true);
+    setStatus("idle");
+    setMessage("Running your code...");
+    setOutput([]);
+
+    try {
+      const source = code.trim();
+      if (!source) {
+        setStatus("failed");
+        setMessage("Write your solution first, then run the challenge.");
+        return;
+      }
+
+      let captured: string[] = [];
+
+      if (challenge.kind === "terminal" || challenge.kind === "maze") {
+        const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor as new (
+          ...args: string[]
+        ) => (...values: unknown[]) => Promise<unknown>;
+
+        const safeConsole = {
+          log: (...values: unknown[]) => {
+            captured.push(values.map((value) => {
+              if (Array.isArray(value)) return value.join(",");
+              if (value && typeof value === "object") return JSON.stringify(value);
+              return String(value);
+            }).join(" "));
+          },
+        };
+
+        const program = new AsyncFunction("console", `"use strict";\n${source}`);
+        await program(safeConsole);
+      }
+
+      setOutput(captured);
+
+      const sourceLower = source.toLowerCase();
+      const missingNow = challenge.expected.filter(
+        (token) => !sourceLower.includes(token.toLowerCase())
+      );
+
+      if (missingNow.length > 0) {
+        setStatus("failed");
+        setMessage(`Still missing: ${missingNow.slice(0, 2).join(" · ")}`);
+        return;
+      }
+
+      if ((challenge.kind === "terminal" || challenge.kind === "maze") && captured.length === 0) {
+        setStatus("failed");
+        setMessage("Your code ran, but it did not produce any output. Check your console.log.");
+        return;
+      }
+
       setStatus("success");
-      setMessage("All checks passed. Nice work.");
+      setMessage("Run successful. All checks passed.");
       if (!completed) dispatch({ type: "COMPLETE_LEVEL", levelId: challenge.id });
-    } else {
+    } catch (error) {
       setStatus("failed");
-      setMessage(`Still missing: ${missing.slice(0, 2).join(" · ")}`);
+      setMessage(error instanceof Error ? `Error: ${error.message}` : "Your program stopped with an error.");
+    } finally {
+      setRunning(false);
     }
   };
 
@@ -42,7 +122,7 @@ export default function ChallengeScreen() {
   return (
     <ScrollView className="flex-1 bg-[#08101f]" contentContainerStyle={{ padding: 20, paddingTop: 54, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
       <Link href="/courses" asChild><Pressable className="flex-row items-center"><ArrowLeft size={18} color="#94a3b8" /><Text className="ml-2 text-sm font-bold text-slate-400">Courses</Text></Pressable></Link>
-      <View className="mt-6 flex-row items-start"><View className="flex-1"><View className="flex-row items-center">{icon}<Text className="ml-2 text-xs font-bold uppercase tracking-[0.18em] text-slate-400">{challenge.kind} challenge</Text></View><Text className="mt-2 text-3xl font-black text-white">{challenge.title}</Text><Text className="mt-2 text-base leading-6 text-slate-400">{challenge.objective}</Text></View></View>
+      <View className="mt-6 flex-row items-start"><View className="flex-1"><View className="flex-row items-center">{icon}<Text className="ml-2 text-xs font-bold uppercase tracking-[0.18em] text-slate-400">{challenge.kind} challenge</Text></View><Text className="mt-2 text-4xl font-black text-white">{challenge.title}</Text><Text className="mt-2 text-lg leading-7 text-slate-300">{challenge.objective}</Text></View></View>
 
       {challenge.kind === "browser" || challenge.kind === "debug" ? (
         <View className="mt-6 overflow-hidden rounded-3xl border border-slate-700 bg-white">
@@ -58,9 +138,49 @@ export default function ChallengeScreen() {
       )}
 
       <View className="mt-5"><CodeEditor value={code} onChangeText={setCode} showLineNumbers /></View>
-      <View className="mt-3 flex-row items-center rounded-xl border border-slate-800 bg-[#0b1220] px-3 py-3"><View className={`h-2 w-2 rounded-full ${status === "success" ? "bg-[#34D399]" : status === "failed" ? "bg-rose-400" : "bg-slate-500"}`} /><Text className="ml-2 flex-1 text-xs text-slate-400">{message}</Text>{status === "success" ? <CheckCircle2 size={16} color="#34D399" /> : null}</View>
-      <Pressable onPress={run} className="mt-4 flex-row items-center justify-center rounded-2xl bg-[#34D399] px-4 py-4"><Play size={16} color="#08101f" fill="#08101f" /><Text className="ml-2 font-black text-[#08101f]">Run Challenge</Text></Pressable>
-      {status === "success" ? <Link href="/courses" asChild><Pressable className="mt-3 rounded-2xl border border-slate-700 px-4 py-3"><Text className="text-center font-bold text-slate-300">Back to course</Text></Pressable></Link> : null}
+      <View className="mt-3 rounded-xl border border-slate-800 bg-[#0b1220] px-4 py-3">
+        <View className="flex-row items-center">
+          <View className={`h-2.5 w-2.5 rounded-full ${status === "success" ? "bg-[#34D399]" : status === "failed" ? "bg-rose-400" : "bg-slate-500"}`} />
+          <Text className="ml-2 flex-1 text-base leading-6 text-slate-300">{message}</Text>
+          {status === "success" ? <CheckCircle2 size={18} color="#34D399" /> : null}
+        </View>
+        {output.length > 0 ? (
+          <View className="mt-3 rounded-lg bg-[#070c15] px-3 py-2">
+            <Text className="text-xs font-bold uppercase tracking-[0.12em] text-[#34D399]">Output</Text>
+            {output.map((line, index) => <Text key={index} className="mt-1 font-mono text-sm text-slate-200">{line}</Text>)}
+          </View>
+        ) : null}
+      </View>
+
+      <Pressable
+        onPress={run}
+        disabled={running}
+        className={`mt-4 flex-row items-center justify-center rounded-2xl px-4 py-5 ${running ? "bg-emerald-900" : "bg-[#34D399]"}`}
+      >
+        <Play size={18} color={running ? "#94a3b8" : "#08101f"} fill={running ? "#94a3b8" : "#08101f"} />
+        <Text className={`ml-2 text-base font-black ${running ? "text-slate-400" : "text-[#08101f]"}`}>
+          {running ? "Running..." : "Run Challenge"}
+        </Text>
+      </Pressable>
+
+      {status === "success" ? (
+        <View className="mt-3 gap-3">
+          {nextChallengeId ? (
+            <Pressable
+              onPress={() => router.push({ pathname: "/challenge/[id]", params: { id: nextChallengeId } })}
+              className="flex-row items-center justify-center rounded-2xl bg-[#123329] px-4 py-4"
+            >
+              <Text className="text-base font-black text-[#34D399]">Next Challenge</Text>
+            </Pressable>
+          ) : null}
+          <Pressable
+            onPress={() => router.push({ pathname: "/course/[id]", params: { id: challengePath?.courseId ?? "web-developer" } })}
+            className="rounded-2xl border border-slate-700 px-4 py-4"
+          >
+            <Text className="text-center text-base font-bold text-slate-300">Back to Course</Text>
+          </Pressable>
+        </View>
+      ) : null}
     </ScrollView>
   );
 }
