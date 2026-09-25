@@ -132,7 +132,7 @@ export default function LevelScreen() {
         )}
         <View className="mt-5 gap-3">
           <CodeEditor value={code} onChangeText={setCode} disabled={running} showLineNumbers={showLineNumbers} />
-          <CodeOutputPanel text={result?.output[0] ?? "Ready..."} />
+          <CodeOutputPanel text={result?.output.join("\n") ?? "Ready..."} />
           <View className="flex-row gap-3">
             <Pressable onPress={resetEditor} disabled={running} className="flex-row items-center justify-center rounded-xl border border-slate-600 px-4 py-3"><RefreshCcw size={15} color="#cbd5e1" /><Text className="ml-2 font-bold text-slate-200">Reset</Text></Pressable>
             <Pressable onPress={() => void runProgram()} disabled={running} className={`flex-1 flex-row items-center justify-center rounded-xl px-4 py-3 ${running ? "bg-slate-700" : "bg-[#34D399]"}`}><Play size={15} color={running ? "#94a3b8" : "#0B0E14"} fill={running ? "transparent" : "#0B0E14"} /><Text className={`ml-2 font-black ${running ? "text-slate-400" : "text-[#0B0E14]"}`}>{running ? "Running" : "Run"}</Text></Pressable>
