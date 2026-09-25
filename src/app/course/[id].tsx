@@ -85,7 +85,7 @@ export default function CourseScreen() {
       <Link href="/courses" asChild>
         <Pressable className="mb-6 flex-row items-center">
           <ArrowLeft size={18} color="#94a3b8" />
-          <Text className="ml-2 text-sm font-bold text-slate-400">All courses</Text>
+          <Text className="ml-2 text-base font-bold text-slate-300">All courses</Text>
         </Pressable>
       </Link>
 
@@ -96,15 +96,15 @@ export default function CourseScreen() {
       <Text className="mt-6 text-xs font-bold uppercase tracking-[0.22em] text-[#34D399]">
         {course.level}
       </Text>
-      <Text className="mt-2 text-3xl font-black text-white">{course.title}</Text>
-      <Text className="mt-3 text-base leading-6 text-slate-400">{course.description}</Text>
+      <Text className="mt-2 text-4xl font-black text-white">{course.title}</Text>
+      <Text className="mt-3 text-lg leading-7 text-slate-300">{course.description}</Text>
 
       <View className="mt-6 rounded-3xl border border-[#1f806e] bg-[#0d2a2c] p-5">
         <View className="flex-row items-center">
           <Lightbulb size={20} color="#34D399" />
-          <Text className="ml-2 text-lg font-black text-white">How this course works</Text>
+          <Text className="ml-2 text-xl font-black text-white">How this course works</Text>
         </View>
-        <Text className="mt-3 text-sm leading-6 text-slate-300">
+        <Text className="mt-3 text-base leading-7 text-slate-300">
           First understand the idea. Then see how the computer uses it. Then study a small example. Finally, use that idea when building real software.
         </Text>
 
@@ -117,8 +117,8 @@ export default function CourseScreen() {
       </View>
 
       <View className="mt-8">
-        <Text className="text-xl font-black text-white">Course curriculum</Text>
-        <Text className="mt-1 text-sm text-slate-500">
+        <Text className="text-2xl font-black text-white">Course curriculum</Text>
+        <Text className="mt-1 text-base text-slate-400">
           Learn the concepts in order. No challenge list here — this page is your learning material.
         </Text>
       </View>
@@ -134,37 +134,37 @@ export default function CourseScreen() {
                   <Text className="font-black text-[#34D399]">{String(index + 1).padStart(2, "0")}</Text>
                 </View>
                 <View className="ml-3 flex-1">
-                  <Text className="text-lg font-black text-white">{chapter.title}</Text>
-                  <Text className="mt-1 text-sm text-slate-500">{chapter.subtitle}</Text>
+                  <Text className="text-xl font-black text-white">{chapter.title}</Text>
+                  <Text className="mt-1 text-base text-slate-400">{chapter.subtitle}</Text>
                 </View>
               </View>
 
               <View className="mt-5">
                 <SectionTitle title="What you will learn" />
-                <Text className="mt-2 text-sm leading-6 text-slate-300">
+                <Text className="mt-2 text-base leading-7 text-slate-300">
                   {lesson?.what ?? chapter.learn}
                 </Text>
 
                 <SectionTitle title="How it works" />
-                <Text className="mt-2 text-sm leading-6 text-slate-400">
+                <Text className="mt-2 text-base leading-7 text-slate-400">
                   {lesson?.how ?? chapter.learn}
                 </Text>
 
                 <SectionTitle title="Why developers use it" />
-                <Text className="mt-2 text-sm leading-6 text-slate-400">
+                <Text className="mt-2 text-base leading-7 text-slate-400">
                   {lesson?.why ?? "This concept is a building block used in real software."}
                 </Text>
 
                 <SectionTitle title="Example" icon={<Code2 size={15} color="#34D399" />} />
                 <View className="mt-2 overflow-hidden rounded-2xl border border-slate-800 bg-[#080d18] p-4">
-                  <Text className="font-mono text-xs leading-5 text-slate-300">
+                  <Text className="font-mono text-sm leading-6 text-slate-300">
                     {lesson?.code ?? ""}
                   </Text>
                 </View>
 
                 <View className="mt-3 rounded-2xl bg-[#0b1d30] p-4">
-                  <Text className="text-xs font-bold uppercase tracking-[0.12em] text-[#34D399]">What happens</Text>
-                  <Text className="mt-1 text-sm leading-5 text-slate-400">
+                  <Text className="text-sm font-bold uppercase tracking-[0.12em] text-[#34D399]">What happens</Text>
+                  <Text className="mt-1 text-base leading-6 text-slate-400">
                     {lesson?.result ?? "The code is processed by the browser or JavaScript runtime to produce the requested result."}
                   </Text>
                 </View>
@@ -172,7 +172,7 @@ export default function CourseScreen() {
                 <View className="mt-4 flex-row flex-wrap gap-2">
                   {chapter.skills.map((skill) => (
                     <View key={skill} className="rounded-full border border-slate-700 px-3 py-1.5">
-                      <Text className="text-[11px] font-bold text-slate-400">{skill}</Text>
+                      <Text className="text-sm font-bold text-slate-300">{skill}</Text>
                     </View>
                   ))}
                 </View>
@@ -200,10 +200,10 @@ export default function CourseScreen() {
           return (
             <View className="mt-5 rounded-3xl border border-slate-800 bg-[#101827] p-5">
               <Text className="text-xs font-bold uppercase tracking-[0.16em] text-[#34D399]">Course complete</Text>
-              <Text className="mt-2 text-lg font-black text-white">You reached the end of the learning path.</Text>
+              <Text className="mt-2 text-xl font-black text-white">You reached the end of the learning path.</Text>
               <Link href="/courses" asChild>
                 <Pressable className="mt-4 rounded-2xl bg-[#34D399] px-4 py-4">
-                  <Text className="text-center font-black text-[#08101f]">View all courses</Text>
+                  <Text className="text-center text-lg font-black text-[#08101f]">View all courses</Text>
                 </Pressable>
               </Link>
             </View>
@@ -211,18 +211,23 @@ export default function CourseScreen() {
         }
 
         return (
-          <Link href={{ pathname: "/course/[id]", params: { id: nextCourse.id } }} asChild>
-            <Pressable className="mt-5 rounded-3xl bg-[#34D399] px-5 py-4">
-              <View className="flex-row items-center justify-between">
-                <View className="flex-1">
-                  <Text className="text-xs font-black uppercase tracking-[0.16em] text-[#064e3b]">Next course</Text>
-                  <Text className="mt-1 text-lg font-black text-[#08101f]">{nextCourse.title}</Text>
-                  <Text className="mt-1 text-xs text-[#0f5132]">Continue your learning path</Text>
+          <View className="mt-6">
+            <Text className="mb-3 text-base font-bold text-slate-400">Ready for the next step?</Text>
+            <Link href={{ pathname: "/course/[id]", params: { id: nextCourse.id } }} asChild>
+              <Pressable className="rounded-3xl bg-[#34D399] px-5 py-5">
+                <View className="flex-row items-center justify-between">
+                  <View className="flex-1 pr-3">
+                    <Text className="text-sm font-black uppercase tracking-[0.16em] text-[#064e3b]">Next course</Text>
+                    <Text className="mt-1 text-xl font-black text-[#08101f]">{nextCourse.title}</Text>
+                    <Text className="mt-1 text-base font-semibold text-[#0f5132]">Continue your learning path</Text>
+                  </View>
+                  <View className="h-12 w-12 items-center justify-center rounded-full bg-[#08101f]">
+                    <ArrowRight size={24} color="#34D399" strokeWidth={3} />
+                  </View>
                 </View>
-                <ArrowRight size={22} color="#08101f" strokeWidth={3} />
-              </View>
-            </Pressable>
-          </Link>
+              </Pressable>
+            </Link>
+          </View>
         );
       })()}
     </ScrollView>
