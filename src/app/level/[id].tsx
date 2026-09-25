@@ -37,7 +37,7 @@ export default function LevelScreen() {
   const [result, setResult] = useState<ExecutionResult | null>(null);
   const [running, setRunning] = useState(false);
   const [runKey, setRunKey] = useState(0);
-  const [tutorialVisible, setTutorialVisible] = useState(resolvedLevel.id === "first-steps");
+  const [tutorialVisible, setTutorialVisible] = useState(resolvedLevel.id === "console-hello");
   const [paused, setPaused] = useState(false);
   const [showLineNumbers] = useState(true);
   if (!level) {
@@ -91,6 +91,18 @@ export default function LevelScreen() {
         </View>
         <Text className="mt-2 text-base leading-6 text-slate-300">{level.description}</Text>
 
+        {isCodeChallenge ? (
+          <View className="mt-5 rounded-3xl border border-emerald-500/20 bg-[#101a2d] p-4">
+            <Text className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-300">{challenge?.chapter}</Text>
+            <Text className="mt-2 text-xl font-black text-white">{challenge?.lesson}</Text>
+            <Text className="mt-2 text-sm leading-5 text-slate-400">{challenge?.teachingSummary}</Text>
+            <View className="mt-4 rounded-2xl border border-slate-700 bg-[#0b1220] p-4">
+              <Text className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500">Mission</Text>
+              <Text className="mt-2 text-base font-bold leading-6 text-slate-100">{challenge?.objective}</Text>
+            </View>
+            <Text className="mt-3 text-xs font-bold text-slate-500">Write the solution yourself. The checker validates what your code actually does.</Text>
+          </View>
+        ) : (
         <View className="mt-5 overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#101a2d]">
           <View className="flex-row items-center justify-between border-b border-slate-700 bg-[#162843] px-4 py-3">
             <Text className="text-xs font-bold uppercase tracking-[0.18em] text-slate-300">3D maze</Text>
@@ -114,12 +126,13 @@ export default function LevelScreen() {
           </View>
         </View>
 
-        <View className="mt-5 gap-3">
+
+        )}        <View className="mt-5 gap-3">
           <CodeEditor value={code} onChangeText={setCode} disabled={running} showLineNumbers={showLineNumbers} />
           <CodeOutputPanel text={result?.output[0] ?? "Ready..."} />
           <View className="flex-row gap-3">
             <Pressable onPress={resetEditor} disabled={running} className="flex-row items-center justify-center rounded-xl border border-slate-600 px-4 py-3"><RefreshCcw size={15} color="#cbd5e1" /><Text className="ml-2 font-bold text-slate-200">Reset</Text></Pressable>
-            <Pressable onPress={runProgram} disabled={running} className={`flex-1 flex-row items-center justify-center rounded-xl px-4 py-3 ${running ? "bg-slate-700" : "bg-[#34D399]"}`}><Play size={15} color={running ? "#94a3b8" : "#0B0E14"} fill={running ? "transparent" : "#0B0E14"} /><Text className={`ml-2 font-black ${running ? "text-slate-400" : "text-[#0B0E14]"}`}>{running ? "Running" : "Run"}</Text></Pressable>
+            <Pressable onPress={() => void runProgram()} disabled={running} className={`flex-1 flex-row items-center justify-center rounded-xl px-4 py-3 ${running ? "bg-slate-700" : "bg-[#34D399]"}`}><Play size={15} color={running ? "#94a3b8" : "#0B0E14"} fill={running ? "transparent" : "#0B0E14"} /><Text className={`ml-2 font-black ${running ? "text-slate-400" : "text-[#0B0E14]"}`}>{running ? "Running" : "Run"}</Text></Pressable>
           </View>
         </View>
       </ScrollView>
