@@ -20,6 +20,7 @@ export type Chapter = {
   subtitle: string;
   skills: string[];
   challenges: string[];
+  learn: string;
 };
 
 export type Course = {
