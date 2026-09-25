@@ -85,6 +85,21 @@ export const courses: Course[] = [
       { id: "jsx", title: "07 · JSX & React Foundations", subtitle: "Turn JavaScript into interfaces", skills: ["JSX", "Components", "Props", "Conditional UI", "map()"], learn: "Learn how JSX works inside JavaScript, build reusable components, pass data with props, render conditions, and turn arrays into UI.", challenges: ["jsx-component", "jsx-props", "jsx-conditions", "jsx-list"] },
     ],
   },
+  {
+    id: "react-app-builder",
+    title: "React App Builder",
+    description: "Move from JSX basics to building complete React applications with state, forms, routing, data, and reusable architecture.",
+    level: "Builder → Developer",
+    color: "#60A5FA",
+    chapters: [
+      { id: "react-components", title: "01 · React Components", subtitle: "Build reusable UI", skills: ["Components", "Props", "Composition"], learn: "Learn how React breaks an interface into small reusable components and how props move data from one component to another.", challenges: [] },
+      { id: "react-state", title: "02 · State & Events", subtitle: "Make interfaces respond", skills: ["useState", "Events", "State flow"], learn: "Understand state as changing information, how events trigger updates, and why React re-renders the interface when state changes.", challenges: [] },
+      { id: "react-forms", title: "03 · Forms & Validation", subtitle: "Handle user input", skills: ["Forms", "Controlled inputs", "Validation"], learn: "Learn how form data moves into state, how validation works, and how a form becomes a reliable part of an application.", challenges: [] },
+      { id: "react-effects", title: "04 · Effects & Data", subtitle: "Work with external data", skills: ["useEffect", "fetch", "Loading", "Errors"], learn: "Understand when code should run because something changed, how to request data, and how applications handle loading and errors.", challenges: [] },
+      { id: "react-routing", title: "05 · Routing & App Structure", subtitle: "Build multi-page experiences", skills: ["Routes", "Navigation", "Layouts"], learn: "Learn how applications organize screens, navigate between them, and keep shared layouts and UI consistent.", challenges: [] },
+      { id: "react-project", title: "06 · Complete React App", subtitle: "Put everything together", skills: ["Architecture", "Reusable UI", "Data", "Deployment"], learn: "Combine components, state, forms, routing and data into a complete application that is organized like a real developer project.", challenges: [] },
+    ],
+  },
 ];
 
 export function getCourse(id: string) {
